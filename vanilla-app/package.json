@@ -1,0 +1,10 @@
+{
+  "name": "vanilla-js-app",
+  "version": "1.0.0",
+  "description": "Proyecto base en Vanilla JS con rutas y peticiones API.",
+  "scripts": {
+    "start": "npx serve -l 5173"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
