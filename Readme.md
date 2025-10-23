@@ -1,0 +1,1 @@
+Para iniciar el proyecto entrar a la carpeta de vanilla-app y ejecutar el comando de npm run start y para inicar el backend  en otra terminal ejecutar node backend/db/server.js 
