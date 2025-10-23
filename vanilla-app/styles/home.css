@@ -1,0 +1,83 @@
+body.home-page {
+  background: #f7f7f7;
+}
+
+.pokemon-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.search-bar {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.search-bar input {
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 96px;
+  height: 96px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.fav-btn {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}

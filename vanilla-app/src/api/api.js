@@ -38,3 +38,9 @@ export async function getFavoritesFromServer() {
     const res = await fetch('http://localhost:4000/api/favorites');
     return await res.json();
 }
+
+// ✅ Nueva función para obtener usuarios
+export async function getUsers() {
+    const response = await fetch('http://localhost:4000/data/users.json');
+    return await response.json();
+}

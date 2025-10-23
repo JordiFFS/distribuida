@@ -95,7 +95,7 @@ export function HomeView() {
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase();
     clearTimeout(searchTimeout);
-    if (query.length < 3) {
+    if (query.length < 2) {
       renderPokemons(allPokemons);
       return;
     }

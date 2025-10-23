@@ -5,6 +5,10 @@
   "scripts": {
     "start": "npx serve -l 5173"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
 }
