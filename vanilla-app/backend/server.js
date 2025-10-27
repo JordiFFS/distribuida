@@ -24,19 +24,28 @@ app.use((req, res, next) => {
    📡 API ROUTES
 ============================== */
 
+app.get('/api/config', (req, res) => {
+  res.json({
+    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:4000',
+    POKEMON_API_URL: process.env.POKEMON_API_URL || 'https://pokeapi.co/api/v2/pokemon',
+    TRIVIA_API_URL: process.env.TRIVIA_API_URL || 'https://opentdb.com/api.php?amount=10&type=multiple',
+    APP_NAME: process.env.APP_NAME || 'VanillaApp'
+  });
+});
+
 // 👤 LOGIN
 app.post('/api/login', (req, res) => {
   console.log('🔐 Login endpoint called');
   console.log('Body:', req.body);
-  
+
   const { username, password } = req.body;
-  
+
   if (!username || !password) {
     return res.status(400).json({ error: 'Faltan credenciales' });
   }
-  
+
   const usersPath = path.join(__dirname, '../public/data/users.json');
-  
+
   console.log('📂 Buscando users.json en:', usersPath);
 
   if (!fs.existsSync(usersPath)) {
@@ -47,7 +56,7 @@ app.post('/api/login', (req, res) => {
   try {
     const usersData = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
     console.log('👥 Usuarios cargados:', usersData.length);
-    
+
     const user = usersData.find(
       (u) => u.username === username && u.password === password
     );
