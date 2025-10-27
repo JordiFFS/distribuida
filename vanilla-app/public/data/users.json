@@ -1,9 +1,11 @@
 [
   {
+    "id": 1,
     "username": "administrador",
     "password": "1Q2w3e4r."
   },
   {
+    "id": 2,
     "username": "Jordi.f",
     "password": "1Q2w3e4r."
   }
