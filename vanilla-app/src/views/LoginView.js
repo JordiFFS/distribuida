@@ -13,25 +13,47 @@ export function LoginView() {
       <button type="submit">Entrar</button>
     </form>
     <p id="loginError" style="display:none; color:red;">Usuario o contraseña incorrectos</p>
+    <p id="loginLoading" style="display:none; color:blue;">Verificando credenciales...</p>
   `;
 
     const form = container.querySelector('#loginForm');
+    const errorMsg = container.querySelector('#loginError');
+    const loadingMsg = container.querySelector('#loginLoading');
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
         const username = container.querySelector('#username').value;
         const password = container.querySelector('#password').value;
 
+        console.log('🔐 Iniciando proceso de login...');
+        console.log('👤 Usuario:', username);
+
+        // Mostrar mensaje de carga
+        errorMsg.style.display = 'none';
+        loadingMsg.style.display = 'block';
+
         try {
             const user = await loginUser(username, password);
+            
+            loadingMsg.style.display = 'none';
+
             if (user) {
+                console.log('✅ Login exitoso, usuario:', user);
                 localStorage.setItem('auth', JSON.stringify(user));
+                
+                console.log('🔄 Redirigiendo a home...');
                 window.location.hash = '#/home';
             } else {
-                container.querySelector('#loginError').style.display = 'block';
+                console.error('❌ Login falló: usuario null');
+                errorMsg.textContent = 'Usuario o contraseña incorrectos';
+                errorMsg.style.display = 'block';
             }
         } catch (err) {
             console.error('❌ Error en login:', err);
-            container.querySelector('#loginError').style.display = 'block';
+            loadingMsg.style.display = 'none';
+            errorMsg.textContent = 'Error al conectar con el servidor. Intenta de nuevo.';
+            errorMsg.style.display = 'block';
         }
     });
 
