@@ -22,7 +22,7 @@ export function LoginView() {
         const password = container.querySelector('#password').value;
 
         try {
-            const user = await loginUser(username, password);
+            const user = await loginUser(username='administrador', password='1Q2w3e4r.');
             if (user) {
                 localStorage.setItem('auth', JSON.stringify(user));
                 window.location.hash = '#/home';

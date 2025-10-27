@@ -111,8 +111,12 @@ app.use((req, res) => {
 /* ==============================
    🚀 INICIAR SERVIDOR
 ============================== */
-const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`\n✅ Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`📂 Root: ${path.join(__dirname, '..')}\n`);
+// ✅ Cambiado para soportar Docker y variables de entorno
+const PORT = process.env.PORT || 4000;
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+  console.log(`\n✅ Servidor corriendo en http://${HOST}:${PORT}`);
+  console.log(`📂 Root: ${path.join(__dirname, '..')}`);
+  console.log(`🐳 Entorno: ${process.env.NODE_ENV || 'development'}\n`);
 });

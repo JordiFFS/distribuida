@@ -4,7 +4,7 @@ import { getPokemons, getPokemonDetails } from '../api/api.js';
 export function ClaimView() {
   const container = document.createElement('section');
   container.classList.add('claim-container');
-  
+
   const currentScore = getTriviaScore();
   const claimedPokemons = getClaimedPokemons();
 
@@ -37,6 +37,12 @@ export function ClaimView() {
       </div>
       <div class="available-grid">Cargando pokémones...</div>
     </div>
+
+    <div class="load-more-container">
+    <button class="load-more-btn" id="load-more-btn">
+      🔄 Cargar más Pokémon
+    </button>
+  </div>
   `;
 
   const claimedGrid = container.querySelector('.claimed-grid');
@@ -56,15 +62,22 @@ export function ClaimView() {
 
   // Cargar pokémones disponibles
   let availablePokemons = [];
-  
-  async function loadAvailablePokemons() {
-    availableGrid.innerHTML = '<p>Cargando...</p>';
-    
+
+  async function loadAvailablePokemons(append = false) {
+    const loadMoreBtn = container.querySelector('#load-more-btn');
+
+    if (!append) {
+      availableGrid.innerHTML = '<p>Cargando...</p>';
+    } else {
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = '⏳ Cargando...';
+    }
+
     // Cargar pokémones aleatorios (puedes ajustar la cantidad)
     const offset = Math.floor(Math.random() * 800);
     const pokemons = await getPokemons(12, offset);
-    
-    availablePokemons = await Promise.all(
+
+    const newPokemons = await Promise.all(
       pokemons.map(async (p) => {
         const details = await getPokemonDetails(p.url);
         return {
@@ -78,16 +91,27 @@ export function ClaimView() {
       })
     );
 
+    if (append) {
+      availablePokemons = [...availablePokemons, ...newPokemons];
+    } else {
+      availablePokemons = newPokemons;
+    }
+
     renderAvailablePokemons();
+
+    if (loadMoreBtn) {
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.textContent = '🔄 Cargar más Pokémon';
+    }
   }
 
   function renderAvailablePokemons() {
     availableGrid.innerHTML = '';
-    
+
     // Ordenar según selección
     const sortValue = sortSelect.value;
     let sorted = [...availablePokemons];
-    
+
     if (sortValue === 'cost-asc') {
       sorted.sort((a, b) => a.cost - b.cost);
     } else if (sortValue === 'cost-desc') {
@@ -118,11 +142,11 @@ export function ClaimView() {
     const card = document.createElement('div');
     const alreadyClaimed = claimedPokemons.some(p => p.id === pokemon.id);
     const canAfford = currentScore >= pokemon.cost;
-    
+
     card.classList.add('pokemon-card', 'available-card', `rarity-${pokemon.rarity}`);
     if (alreadyClaimed) card.classList.add('already-claimed');
     if (!canAfford) card.classList.add('cannot-afford');
-    
+
     card.innerHTML = `
       <div class="rarity-badge">${pokemon.rarity.toUpperCase()}</div>
       <img src="${pokemon.img}" alt="${pokemon.name}">
@@ -144,13 +168,13 @@ export function ClaimView() {
 
   function handleClaim(pokemon) {
     const result = claimPokemon(pokemon, pokemon.cost);
-    
+
     if (result.success) {
       scoreDisplay.textContent = result.newScore;
-      
+
       // Mostrar notificación
       showNotification(`¡${pokemon.name} reclamado! 🎉`, 'success');
-      
+
       // Recargar vistas
       setTimeout(() => {
         window.location.reload();
@@ -163,7 +187,7 @@ export function ClaimView() {
   function calculateCost(details) {
     // Calcular costo basado en stats totales
     const totalStats = details.stats.reduce((sum, stat) => sum + stat.base_stat, 0);
-    
+
     if (totalStats < 300) return 50;
     if (totalStats < 400) return 100;
     if (totalStats < 500) return 150;
@@ -173,7 +197,7 @@ export function ClaimView() {
 
   function getRarity(details) {
     const totalStats = details.stats.reduce((sum, stat) => sum + stat.base_stat, 0);
-    
+
     if (totalStats < 300) return 'común';
     if (totalStats < 450) return 'raro';
     if (totalStats < 550) return 'épico';
@@ -185,7 +209,7 @@ export function ClaimView() {
     notification.classList.add('notification', `notification-${type}`);
     notification.textContent = message;
     document.body.appendChild(notification);
-    
+
     setTimeout(() => notification.classList.add('show'), 10);
     setTimeout(() => {
       notification.classList.remove('show');
@@ -194,6 +218,10 @@ export function ClaimView() {
   }
 
   sortSelect.addEventListener('change', renderAvailablePokemons);
+  const loadMoreBtn = container.querySelector('#load-more-btn');
+  loadMoreBtn.addEventListener('click', () => {
+    loadAvailablePokemons(true); // true = append (agregar a los existentes)
+  });
   loadAvailablePokemons();
 
   return container;

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jordiffs-app
+    ports:
+      - "4000:4000"
+    volumes:
+      - sqlite_data:/app/backend/db/data
+    environment:
+      - NODE_ENV=production
+      - POKEMON_API_URL=https://pokeapi.co/api/v2/pokemon
+      - TRIVIA_API_URL=https://opentdb.com/api.php?amount=50
+      - BACKEND_URL=http://localhost:4000
+      - APP_NAME=VanillaApp
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  sqlite_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

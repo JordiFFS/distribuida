@@ -2,6 +2,7 @@
 const ENV = {
     POKEMON_API_URL: 'https://pokeapi.co/api/v2/pokemon',
     TRIVIA_API_URL: 'https://opentdb.com/api.php?amount=10&type=multiple',
+    // TRIVIA_API_URL: 'https://opentdb.com/api.php?amount=50&category=21',
     BACKEND_URL: 'http://localhost:4000'
 };
 

@@ -3,7 +3,7 @@ import { getTrivia, getTriviaScore, updateTriviaScore, getCurrentLanguage, setCu
 export function SurveyView() {
   const container = document.createElement('section');
   container.classList.add('trivia-container');
-  
+
   let questions = [];
   let currentQuestionIndex = 0;
   let score = getTriviaScore();
@@ -19,6 +19,10 @@ export function SurveyView() {
           <span class="score-value">${score}</span>
           <span class="coins">⭐</span>
         </div>
+
+        <button class="language-toggle" id="claim-direct">
+    💎   ${currentLanguage === 'es' ? 'Reclamar' : 'Claim'}
+        </button>
         
         <button class="language-toggle" id="language-toggle">
           <span class="flag">${currentLanguage === 'es' ? '🇬🇧 English' : '🇪🇸 Español'}</span>
@@ -34,6 +38,12 @@ export function SurveyView() {
   `;
 
   const content = container.querySelector('.trivia-content');
+
+  const claimDirectBtn = container.querySelector('#claim-direct');
+  claimDirectBtn.addEventListener('click', () => {
+    window.location.hash = '#/claim';
+  });
+
   const scoreDisplay = container.querySelector('.score-value');
   const languageToggle = container.querySelector('#language-toggle');
 
@@ -41,11 +51,11 @@ export function SurveyView() {
   languageToggle.addEventListener('click', async () => {
     const newLanguage = currentLanguage === 'es' ? 'en' : 'es';
     setCurrentLanguage(newLanguage);
-    
+
     // Mostrar mensaje de carga
     languageToggle.disabled = true;
     languageToggle.innerHTML = `<span class="flag">⏳ ${currentLanguage === 'es' ? 'Cambiando...' : 'Changing...'}</span>`;
-    
+
     // Recargar la vista
     setTimeout(() => {
       window.location.reload();
@@ -59,9 +69,9 @@ export function SurveyView() {
         <small>${currentLanguage === 'es' ? 'Esto puede tardar unos segundos' : 'This may take a few seconds'}</small>
       </div>
     `;
-    
+
     questions = await getTrivia();
-    
+
     if (questions.length === 0) {
       content.innerHTML = `
         <div class="error-state">
@@ -93,7 +103,7 @@ export function SurveyView() {
     const totalQuestions = questions.length;
     const points = getPointsForDifficulty(question.dificultad);
 
-    const labels = currentLanguage === 'es' 
+    const labels = currentLanguage === 'es'
       ? { question: 'Pregunta', of: 'de' }
       : { question: 'Question', of: 'of' };
 
@@ -113,9 +123,9 @@ export function SurveyView() {
         <div class="answers-container ${question.tipo === 'booleano' || question.tipo === 'boolean' ? 'boolean-answers' : ''}">
           ${allAnswers.map((answer, index) => `
             <button class="answer-btn" data-answer="${answer}">
-              ${(question.tipo === 'booleano' || question.tipo === 'boolean') ? 
-                (answer.toLowerCase().includes('true') || answer.toLowerCase().includes('verdadero') ? '✅' : '❌') 
-                : ''} 
+              ${(question.tipo === 'booleano' || question.tipo === 'boolean') ?
+        (answer.toLowerCase().includes('true') || answer.toLowerCase().includes('verdadero') ? '✅' : '❌')
+        : ''} 
               ${answer}
             </button>
           `).join('')}
@@ -138,7 +148,7 @@ export function SurveyView() {
 
     buttons.forEach(btn => {
       btn.disabled = true;
-      
+
       if (btn.dataset.answer === question.respuesta_correcta) {
         btn.classList.add('correct');
       } else if (btn.dataset.answer === selectedAnswer && !isCorrect) {
@@ -176,7 +186,7 @@ export function SurveyView() {
       feedback.innerHTML += `
         <button class="next-question-btn">${nextText}</button>
       `;
-      
+
       feedback.querySelector('.next-question-btn').addEventListener('click', () => {
         currentQuestionIndex++;
         showQuestion();
