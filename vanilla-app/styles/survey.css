@@ -1,0 +1,498 @@
+/* ==============================
+   🎯 TRIVIA CONTAINER
+============================== */
+.trivia-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+.trivia-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.trivia-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.score-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.score-label {
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+
+.score-value {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.coins {
+  font-size: 1.5rem;
+}
+
+/* ==============================
+   📝 QUESTION CARD
+============================== */
+.trivia-content {
+  position: relative;
+}
+
+.question-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.question-number {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.question-difficulty {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficulty-fácil {
+  background: #d4edda;
+  color: #155724;
+}
+
+.difficulty-medio {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-difícil {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.question-category {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #555;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  color: #222;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+/* ==============================
+   ✅ ANSWERS
+============================== */
+.answers-container {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.answer-btn {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.answer-btn:hover:not(:disabled) {
+  background: #e9ecef;
+  border-color: #667eea;
+  transform: translateX(5px);
+}
+
+.answer-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.answer-btn:disabled {
+  cursor: not-allowed;
+}
+
+.answer-btn.correct {
+  background: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+  font-weight: bold;
+}
+
+.answer-btn.correct::before {
+  content: "✓";
+  position: absolute;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #28a745;
+}
+
+.answer-btn.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+  font-weight: bold;
+}
+
+.answer-btn.incorrect::before {
+  content: "✗";
+  position: absolute;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #dc3545;
+}
+
+/* Respuestas booleanas en grid de 2 columnas */
+.boolean-answers {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.boolean-answers .answer-btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* ==============================
+   💬 FEEDBACK
+============================== */
+.question-feedback {
+  margin-top: 1.5rem;
+}
+
+.feedback {
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.correct-feedback {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+.correct-feedback strong {
+  color: #155724;
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.correct-feedback p {
+  color: #155724;
+  margin: 0;
+}
+
+.incorrect-feedback {
+  background: #f8d7da;
+  border-left: 4px solid #dc3545;
+}
+
+.incorrect-feedback strong {
+  color: #721c24;
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.incorrect-feedback p {
+  color: #721c24;
+  margin: 0;
+}
+
+.next-question-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 1rem;
+}
+
+.next-question-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.next-question-btn:active {
+  transform: translateY(0);
+}
+
+/* ==============================
+   🏆 COMPLETION SCREEN
+============================== */
+.completion-screen {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.completion-screen h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.final-score {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+}
+
+.final-score p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.big-score {
+  display: block;
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.completion-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.claim-btn,
+.retry-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.claim-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.claim-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+}
+
+.retry-btn {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #e0e0e0;
+}
+
+.retry-btn:hover {
+  background: #e9ecef;
+  border-color: #667eea;
+}
+
+/* ==============================
+   ⏳ LOADING & ERROR STATES
+============================== */
+.loading-state,
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.loading-state p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error-state p {
+  font-size: 1.2rem;
+  color: #dc3545;
+  margin-bottom: 1.5rem;
+}
+
+.error-state .retry-btn {
+  padding: 0.75rem 1.5rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.error-state .retry-btn:hover {
+  background: #5568d3;
+}
+
+/* ==============================
+   📱 RESPONSIVE
+============================== */
+@media (max-width: 768px) {
+  .trivia-container {
+    padding: 1rem;
+  }
+
+  .trivia-header h1 {
+    font-size: 2rem;
+  }
+
+  .question-card {
+    padding: 1.5rem;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+  }
+
+  .answer-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .boolean-answers {
+    grid-template-columns: 1fr;
+  }
+
+  .big-score {
+    font-size: 3rem;
+  }
+
+  .completion-actions {
+    flex-direction: column;
+  }
+
+  .claim-btn,
+  .retry-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .question-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .score-display {
+    font-size: 0.9rem;
+  }
+
+  .score-value {
+    font-size: 1.2rem;
+  }
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.language-toggle {
+  background: white;
+  border: 2px solid #667eea;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.language-toggle:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.language-toggle:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.language-toggle .flag {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .header-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .language-toggle {
+    width: 100%;
+  }
+}

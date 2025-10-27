@@ -81,3 +81,100 @@ button:hover:not(:disabled) {
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.search-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.search-btn:active {
+  transform: translateY(0);
+}
+
+/* ==============================
+   📌 SEARCH INFO
+============================== */
+.search-info {
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 30px;
+}
+
+.search-success {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.search-error {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.search-hint {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.no-results {
+  text-align: center;
+  color: #999;
+  font-size: 1.3rem;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+/* ==============================
+   📱 RESPONSIVE SEARCH
+============================== */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}
