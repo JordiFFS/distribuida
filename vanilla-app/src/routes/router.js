@@ -4,6 +4,7 @@ import { SurveyView } from '../views/SurveyView.js';
 import { FavoritesView } from '../views/FavoritesView.js';
 import { Navbar } from '../Layout/Navbar.js';
 import { ClaimView } from '../views/ClaimView.js';
+import { isAuthenticated } from '../api/api.js';
 
 export function initRouter() {
   window.addEventListener('hashchange', loadRoute);
@@ -15,12 +16,12 @@ function loadRoute() {
   app.innerHTML = '';
 
   const route = window.location.hash || '#/login';
-  const auth = JSON.parse(localStorage.getItem('auth'));
+  // const auth = JSON.parse(localStorage.getItem('auth'));
 
   // Limpiar clases del body
   document.body.className = '';
 
-  if (!auth && route !== '#/login') {
+  if (!isAuthenticated() && route !== '#/login') {
     window.location.hash = '#/login';
     return;
   }

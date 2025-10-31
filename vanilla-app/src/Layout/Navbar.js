@@ -1,9 +1,12 @@
+import { logout } from '../api/api.js';
+
 export function Navbar() {
     const nav = document.createElement('nav');
     nav.classList.add('navbar');
 
+    // ✅ Cambio: Obtener datos del usuario desde Strapi
     const auth = JSON.parse(localStorage.getItem('auth'));
-    const username = auth?.username || 'Usuario';
+    const username = auth?.user?.username || auth?.user?.email || 'Usuario';
 
     nav.innerHTML = `
     <div class="navbar-container">
@@ -27,10 +30,10 @@ export function Navbar() {
         }
     });
 
-    // Evento de cerrar sesión
+    // ✅ Cambio: Evento de cerrar sesión usando la función logout()
     nav.querySelector('#logout-btn').addEventListener('click', () => {
         if (confirm('¿Estás seguro de cerrar sesión?')) {
-            localStorage.removeItem('auth');
+            logout(); // Limpia tanto 'auth' como 'strapiToken'
             window.location.hash = '#/login';
         }
     });
