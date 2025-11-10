@@ -2,8 +2,9 @@ import { HomeView } from '../views/HomeView.js';
 import { LoginView } from '../views/LoginView.js';
 import { SurveyView } from '../views/SurveyView.js';
 import { FavoritesView } from '../views/FavoritesView.js';
-import { Navbar } from '../Layout/Navbar.js';
 import { ClaimView } from '../views/ClaimView.js';
+import { HelloView } from '../views/HelloView.js'; // ⬅️ Nueva vista
+import { Navbar } from '../Layout/Navbar.js';
 import { isAuthenticated } from '../api/api.js';
 
 export function initRouter() {
@@ -16,12 +17,14 @@ function loadRoute() {
   app.innerHTML = '';
 
   const route = window.location.hash || '#/login';
-  // const auth = JSON.parse(localStorage.getItem('auth'));
 
   // Limpiar clases del body
   document.body.className = '';
 
-  if (!isAuthenticated() && route !== '#/login') {
+  // Rutas públicas que no requieren autenticación
+  const publicRoutes = ['#/login', '#/hello'];
+  
+  if (!isAuthenticated() && !publicRoutes.includes(route)) {
     window.location.hash = '#/login';
     return;
   }
@@ -56,6 +59,14 @@ function loadRoute() {
       document.body.classList.add('claim-page');
       app.appendChild(Navbar());
       app.appendChild(ClaimView());
+      break;
+
+    // ⬇️ Nueva ruta para Hola Mundo
+    case '#/hello':
+      dynamicStyles.href = '/styles/hello.css'; // Reutiliza estilos o crea hello.css
+      document.body.classList.add('hello-page');
+      app.appendChild(Navbar());
+      app.appendChild(HelloView());
       break;
 
     case '#/login':

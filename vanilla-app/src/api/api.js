@@ -177,7 +177,8 @@ export async function testStrapiConnection() {
  */
 export async function loginStrapi(email, password) {
     try {
-        const response = await fetch(`${STRAPI_URL}/auth/local`, {
+        // ✅ CORRECCIÓN: Agregar /api/ antes de /auth/local
+        const response = await fetch(`${STRAPI_URL}/api/auth/local`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -218,5 +219,96 @@ export async function getUsers(token) {
     } catch (error) {
         console.error("❌ Error al obtener usuarios:", error);
         throw error;
+    }
+}
+
+/* ==============================
+   👋 HOLA MUNDO - STRAPI
+============================== */
+
+/**
+ * Obtiene el mensaje "Hola Mundo" público desde Strapi
+ * No requiere autenticación
+ */
+export async function getHelloWorld() {
+    const config = await loadConfig();
+
+    try {
+        console.log('📡 Llamando a /api/hello...');
+        const response = await fetch(`${config.STRAPI_URL}/api/hello`);
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('✅ Respuesta recibida:', data);
+        return data;
+    } catch (error) {
+        console.error('❌ Error en getHelloWorld:', error);
+        throw error;
+    }
+}
+
+/**
+ * Obtiene el mensaje "Hola Mundo" protegido desde Strapi
+ * Requiere token JWT de autenticación
+ */
+export async function getSecureHelloWorld() {
+    const config = await loadConfig();
+    const token = getToken();
+
+    if (!token) {
+        throw new Error('No hay token de autenticación. Inicia sesión primero.');
+    }
+
+    try {
+        console.log('🔐 Llamando a /api/hello/secure con token...');
+        const response = await fetch(`${config.STRAPI_URL}/api/hello/secure`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Token inválido o expirado. Vuelve a iniciar sesión.');
+            }
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('✅ Respuesta segura recibida:', data);
+        return data;
+    } catch (error) {
+        console.error('❌ Error en getSecureHelloWorld:', error);
+        throw error;
+    }
+}
+
+/**
+ * Función de prueba rápida - llama a ambos endpoints
+ */
+export async function testHelloEndpoints() {
+    console.log('🧪 Probando endpoints de Hola Mundo...\n');
+
+    // Probar endpoint público
+    try {
+        console.log('1️⃣ Probando endpoint público:');
+        const publicData = await getHelloWorld();
+        console.log('   ✅ Público OK:', publicData.message, '\n');
+    } catch (error) {
+        console.error('   ❌ Público falló:', error.message, '\n');
+    }
+
+    // Probar endpoint protegido
+    try {
+        console.log('2️⃣ Probando endpoint protegido:');
+        const secureData = await getSecureHelloWorld();
+        console.log('   ✅ Protegido OK:', secureData.message, '\n');
+    } catch (error) {
+        console.error('   ❌ Protegido falló:', error.message, '\n');
     }
 }

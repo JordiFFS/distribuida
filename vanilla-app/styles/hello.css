@@ -1,0 +1,153 @@
+.hello-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.hello-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hello-content h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.user-info {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.user-info span {
+    font-weight: bold;
+    color: #4945ff;
+}
+
+.buttons-section {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: #4945ff;
+    color: white;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.response-section {
+    margin-top: 2rem;
+}
+
+.response-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.response-box {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    min-height: 200px;
+}
+
+.response-box .placeholder {
+    color: #6c757d;
+    text-align: center;
+    font-style: italic;
+}
+
+.response-box .loading {
+    text-align: center;
+    color: #4945ff;
+    font-size: 1.2rem;
+}
+
+.response-success,
+.response-error {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.response-success pre {
+    background: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.response-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #dc3545;
+}
+
+.info-section {
+    margin-top: 2rem;
+    background: #e7f3ff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #4945ff;
+}
+
+.info-section h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.info-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-section li {
+    padding: 0.5rem 0;
+    color: #495057;
+}
+
+.info-section li strong {
+    color: #4945ff;
+}
