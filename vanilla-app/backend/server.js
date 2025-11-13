@@ -113,8 +113,6 @@ const rootPath = path.join(__dirname, '..');
 
 app.use('/', express.static(rootPath));
 
-app.use('/styles', express.static(path.join(rootPath, 'styles')));
-
 app.use('/poke', express.static(rootPath));
 app.use('/poke/styles', express.static(path.join(rootPath, 'styles')));
 
