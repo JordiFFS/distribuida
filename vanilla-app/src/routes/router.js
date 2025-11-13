@@ -34,28 +34,28 @@ function loadRoute() {
 
   switch (route) {
     case '#/home':
-      dynamicStyles.href = '/styles/home.css';
+      dynamicStyles.href = '/src/styles/home.css';
       document.body.classList.add('home-page');
       app.appendChild(Navbar());
       app.appendChild(HomeView());
       break;
 
     case '#/survey':
-      dynamicStyles.href = '/styles/survey.css';
+      dynamicStyles.href = '/src/styles/survey.css';
       document.body.classList.add('survey-page');
       app.appendChild(Navbar());
       app.appendChild(SurveyView());
       break;
 
     case '#/favorites':
-      dynamicStyles.href = '/styles/home.css';
+      dynamicStyles.href = '/src/styles/home.css';
       document.body.classList.add('favorites-page');
       app.appendChild(Navbar());
       app.appendChild(FavoritesView());
       break;
 
     case '#/claim':
-      dynamicStyles.href = '/styles/claim.css';
+      dynamicStyles.href = '/src/styles/claim.css';
       document.body.classList.add('claim-page');
       app.appendChild(Navbar());
       app.appendChild(ClaimView());
@@ -63,7 +63,7 @@ function loadRoute() {
 
     // ⬇️ Nueva ruta para Hola Mundo
     case '#/hello':
-      dynamicStyles.href = '/styles/hello.css'; // Reutiliza estilos o crea hello.css
+      dynamicStyles.href = '/src/styles/hello.css'; // Reutiliza estilos o crea hello.css
       document.body.classList.add('hello-page');
       app.appendChild(Navbar());
       app.appendChild(HelloView());
@@ -71,7 +71,7 @@ function loadRoute() {
 
     case '#/login':
     default:
-      dynamicStyles.href = '/styles/login.css';
+      dynamicStyles.href = '/src/styles/login.css';
       document.body.classList.add('login-page');
       app.appendChild(LoginView());
       break;

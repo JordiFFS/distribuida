@@ -111,13 +111,7 @@ app.delete('/api/favorites/:id', async (req, res) => {
 
 const rootPath = path.join(__dirname, '..');
 
-// 👉 Ruta para servir los estilos
-app.use('/styles', express.static(path.join(rootPath, 'styles')));
-
-// 👉 Tu app principal bajo /poke
 app.use('/poke', express.static(rootPath));
-
-// 👉 También servir desde /
 app.use('/', express.static(rootPath));
 
 /* ==============================
