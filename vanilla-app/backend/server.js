@@ -110,17 +110,15 @@ app.delete('/api/favorites/:id', async (req, res) => {
 ============================== */
 
 const rootPath = path.join(__dirname, '..');
-const stylesPath = path.join(rootPath, 'styles');
 
-// ✅ Servir la app en raíz
-app.use(express.static(rootPath));
+// 👉 Ruta para servir los estilos
+app.use('/styles', express.static(path.join(rootPath, 'styles')));
 
-// ✅ Servir estilos explícitamente
-app.use('/styles', express.static(stylesPath));
-
-// ✅ Servir también bajo /poke (para balanceador)
+// 👉 Tu app principal bajo /poke
 app.use('/poke', express.static(rootPath));
-app.use('/poke/styles', express.static(stylesPath));
+
+// 👉 También servir desde /
+app.use('/', express.static(rootPath));
 
 /* ==============================
    🚀 FALLBACK PARA SPA (Express 5 compatible)
