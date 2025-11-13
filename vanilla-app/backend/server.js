@@ -108,13 +108,20 @@ app.delete('/api/favorites/:id', async (req, res) => {
 /* ==============================
    🗂️ ARCHIVOS ESTÁTICOS
 ============================== */
-app.use(express.static(path.join(__dirname, '..')));
+// 🧭 Ruta absoluta a la carpeta raíz pública
+const rootPath = path.join(__dirname, '..');
+
+// ✅ Servir tu app bajo /poke (para el balanceador que apunta al puerto 4000)
+app.use('/poke', express.static(rootPath));
+
+// ✅ Servir también directamente en /
+app.use('/', express.static(rootPath));
 
 /* ==============================
    🚀 FALLBACK PARA SPA (Express 5 compatible)
 ============================== */
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+app.get(['/poke/*'], (req, res) => {
+  res.sendFile(path.join(rootPath, 'index.html'));
 });
 
 /* ==============================
